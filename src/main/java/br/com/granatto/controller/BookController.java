@@ -14,7 +14,10 @@ import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Book endpoint")
 @RestController
 @RequestMapping("book-service")
 public class BookController {
@@ -28,6 +31,7 @@ public class BookController {
 	@Autowired
 	private BookRepository repository;
 	
+	@Operation(summary = "Find a specific book by ID")
 	@GetMapping(value = "/{id}/{currency}")
 	@Retry(name = "default")
 	@CircuitBreaker(name = "default")
